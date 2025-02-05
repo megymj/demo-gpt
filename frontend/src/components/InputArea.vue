@@ -6,8 +6,8 @@
           class="form-control border-0"
           placeholder="Message DeepSeek"
           v-model="message"
-          @keydown.enter="sendMessage"
-      >
+          @keyup.enter="sendMessage"
+      > <!-- @keyup.enter : 엔터 키가 떼어졌을 때 실행됨 -->
       <div class="input-actions">
         <button class="btn btn-link text-dark p-1">
           <i class="bi bi-search fs-5"></i>
@@ -24,15 +24,15 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import {ref, defineEmits} from "vue";
 
 const message = ref("");
 const emit = defineEmits(["send-message"]);
 
 const sendMessage = () => {
   if (message.value.trim() !== "") {
-    console.log(message)
-    emit("send-message", message.value); // ✅ 부모로 메시지 전달
+    console.log("보내는 메시지 : ", message.value); // message.value로 출력
+    emit("send-message", message.value); // 부모 컴포넌트로 이벤트 전달
     message.value = "";
   }
 };
@@ -66,7 +66,7 @@ const sendMessage = () => {
 }
 
 .input-actions .btn {
-  padding: 8px;  /* 버튼 패딩 증가 */
+  padding: 8px; /* 버튼 패딩 증가 */
 }
 
 /* Bootstrap의 fs-5 클래스로 아이콘 크기를 키웁니다 */
