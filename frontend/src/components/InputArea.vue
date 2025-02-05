@@ -5,12 +5,10 @@
           type="text"
           class="form-control border-0"
           placeholder="Message DeepSeek"
+          v-model="message"
+          @keydown.enter="sendMessage"
       >
       <div class="input-actions">
-<!--        <button class="btn btn-link text-dark p-1 d-flex align-items-center">
-          <i class="bi bi-robot me-1"></i>
-          <span class="small">DeepThink (R1)</span>
-        </button>-->
         <button class="btn btn-link text-dark p-1">
           <i class="bi bi-search fs-5"></i>
         </button>
@@ -26,7 +24,18 @@
 </template>
 
 <script setup>
-// Component logic can be added here if needed
+import { ref, defineEmits } from "vue";
+
+const message = ref("");
+const emit = defineEmits(["send-message"]);
+
+const sendMessage = () => {
+  if (message.value.trim() !== "") {
+    console.log(message)
+    emit("send-message", message.value); // ✅ 부모로 메시지 전달
+    message.value = "";
+  }
+};
 </script>
 
 <style scoped>

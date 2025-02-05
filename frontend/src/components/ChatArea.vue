@@ -1,22 +1,53 @@
 <template>
   <div class="chat-area">
-    <img :src="'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-03%20at%209.14.43%E2%80%AFPM-vUK7BRTcGU1Ln3Abrem1m2c6qIwOnC.png'" alt="DeepSeek Logo" class="mb-3" style="width: 40px; height: 40px;">
-    <h4 class="mb-2">Hi, I'm DeepSeek.</h4>
-    <p class="text-muted">How can I help you today?</p>
+    <div class="chat-box">
+      <div v-for="(msg, index) in messages" :key="index" class="message">
+        <p :class="msg.sender === 'me' ? 'my-message' : 'other-message'">
+          {{ msg.text }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-// Component logic can be added here if needed
+
+defineProps({
+  messages: Array, // ✅ 부모에서 받은 messages
+});
+
 </script>
 
 <style scoped>
-/* Chat area styles */
 .chat-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.chat-box {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  color: black;
+  font-size: 20px;
+}
+
+.my-message {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+}
+
+.other-message {
+  background-color: #f8d7da;
+  align-self: flex-start;
 }
 </style>
